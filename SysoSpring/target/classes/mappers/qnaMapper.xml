@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.qnaMapper">
+
+<select id="getQnaList" resultType="com.itwillbs.domain.QnaVO">
+	SELECT * FROM qna ORDER BY qna_idx DESC limit #{startRow}, #{pageSize}
+</select>
+
+<select id="getQnaCount" resultType="java.lang.Integer">
+	SELECT COUNT(*) as listCount FROM qna
+</select>
+
+<insert id="insertQna">
+	INSERT INTO qna(qna_idx, member_id, qna_content, qna_date)  VALUES(0,#{member_id},#{qna_content},#{qna_date})
+</insert>
+
+<update id="insertQnaReply">
+  	update qna set qna_reply = '${qna_reply}' where qna_idx = #{qna_idx}
+</update>
+
+<update id="deleteQnaReply">
+  	update qna set qna_reply = '' where qna_idx = #{qna_idx}
+</update>
+
+<delete id="deleteQna">
+	DELETE FROM qna WHERE qna_idx=#{qna_idx}
+</delete>
+
+<update id="updateQna">
+	UPDATE qna SET qna_content=#{qna_content} WHERE qna_idx=#{qna_idx}
+</update>
+
+<!-- ========= -->
+
+
+<!-- <select id="getQna" resultType="com.itwillbs.domain.QnaVO"> -->
+<!-- 	SELECT * FROM qna WHERE qna_idx =#{num} -->
+<!-- </select> -->
+
+<!-- <select id="getMaxNum" resultType="java.lang.Integer"> -->
+<!-- 	select max(qna_idx) from qna -->
+<!-- </select> -->
+
+<!-- <update id="updateReseq"> -->
+<!--   	update qna set qna_re_seq=qna_re_seq+1 where qna_re_ref = #{qna_re_ref} and qna_re_seq > #{qna_re_seq} -->
+<!-- </update> -->
+
+
+<!-- ===================================================== -->
+</mapper>
+
+
+
+
+
+
+
+
+
+

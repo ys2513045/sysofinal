@@ -1,0 +1,211 @@
+#container{
+    width: 1024px; 
+    margin: 0 auto;
+    
+}
+
+#sec1{
+    padding-top: 140px;
+}
+
+#tabs{
+    width: 100%; 
+}
+#tabs ul.menu{
+    display: flex;
+    height: 44px;
+    margin-bottom: 20px;
+    background: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%), 0 8px 20px rgb(0 0 0 / 10%);
+   
+}
+#tabs ul.menu li{
+    flex: 1 1 0%;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-weight: 600;
+    position: relative;
+    
+}
+#tabs ul.menu li a{
+    width: 100%;
+    text-align: center;
+}
+
+.on{
+    color:#396afc;
+    border-bottom: 2px solid #396afc;
+}
+.bold{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#tabs-1{
+    background:#fff;
+    border: 1px solid rgb(238, 238, 238);
+     box-shadow: 0 2px 8px rgb(0 0 0 / 10%), 0 8px 20px rgb(0 0 0 / 10%);
+    
+}
+
+
+.accordion {
+  background-color: #fff;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+border-bottom: 1px solid rgb(238, 238, 238);
+    font-weight: bold;
+}
+
+.active, .accordion:hover {
+  
+}
+
+.accordion:after {
+  content: '\002B';
+  color: #396afc;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.panel {
+  padding: 0 18px;
+  background-color:#eee;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+font-size: 13px;
+
+}
+
+.panel p{
+    padding: 20px;
+        
+    line-height: 1.8rem;
+}
+#tabs-2{
+    background: #fff;
+    padding: 40px;
+    padding-top: 70px;
+}
+.table1 .t-title{
+    width: 300px;
+    font-size: 1.5rem;
+    margin-right: 50px;
+}
+.ul1 li{
+        border-bottom: 1px solid rgb(234, 233, 241);
+    padding: 20px;
+
+}
+.ul1 li:last-child{
+    padding-bottom: 50px;
+    
+}
+.tr1{
+    border-bottom: 2px solid #000;
+
+}
+
+.table2{
+    padding-top: 20px;
+}
+.ul2 li{
+    padding: 20px;
+}
+.ul2 li:first-child{
+    padding-top: 40px;
+}
+.table2 td{
+    padding: 20px;
+}
+
+#tabs-3{
+    background: #fff;
+    padding: 40px;
+    padding-top: 70px;
+}
+#tabs-3 h1{
+    margin-bottom: 20px;
+color: #396afc;
+}
+
+#tabs-3 textarea{
+    padding: 10px;
+resize: none;
+    border: none;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%), 0 8px 20px rgb(0 0 0 / 10%);
+    border-radius: 10px;
+    outline: none;
+
+}
+
+.subBtn{
+   
+    height: 120px;
+    border: none;
+    width: 100px;
+    right: 24%;
+    background: #fff;
+    color: #396afc;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%), 0 8px 20px rgb(0 0 0 / 10%);
+    cursor: pointer;
+    transition: .4s;
+    
+}
+.subBtn:hover{
+    background: #396afc;
+    color: #fff;
+}
+#tabs-3 form{
+    margin-bottom: 40px;
+}
+
+
+.qna{
+    display: flex;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 20px;
+}
+.qna .nick{
+    width: 150px;
+    margin-right: 20px;
+}
+.qna .content{
+    width: 300px;
+    margin-right: 20px;
+}
+.qna .date{
+	width:150px;
+    margin-right: 20px;
+}
+
+.on2{
+    display: block;
+}
+#btn_prompt{
+    cursor: pointer;
+    color: orange;
+    background: none;
+    border: none;
+    outline: none;
+}

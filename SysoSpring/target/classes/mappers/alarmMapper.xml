@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.alarmMapper">
+
+	<select id="getAlarm" resultType="com.itwillbs.domain.AlarmVO">
+		SELECT *, (SELECT member_nickname FROM member WHERE member.member_id =
+		(SELECT member_id FROM orderItem WHERE orderItem_idx =
+		alarm.orderItem_idx)) as 'member_nickname' FROM alarm WHERE member_id
+		= #{member_id} order by alarm_date desc limit 0, 5
+	</select>
+
+	<!-- <insert id="insertAlarm" parameterType="com.itwillbs.domain.MessageDTO"> -->
+
+	<!-- insert into alarm(member_id,alarm_content,alarm_date) values(#{recv_nick},#{send_nick}'님이 
+		메세지를 보내셨습니다',#{send_time}) -->
+	<!-- </insert> -->
+
+	<select id="getAlarm2" resultType="com.itwillbs.domain.AlarmVO">
+		select * from alarm where member_id = #{member_id}
+	</select>
+
+	<insert id="insertOrderAlarm"
+		parameterType="com.itwillbs.domain.MessageDTO">
+		INSERT INTO alarm SELECT orderItem_idx, member_id, concat(orderitem_state), now(), orderItem_idx FROM orderitem WHERE orderitem.orderItem_idx = ${orderItem_idx}
+	</insert>
+
+</mapper>

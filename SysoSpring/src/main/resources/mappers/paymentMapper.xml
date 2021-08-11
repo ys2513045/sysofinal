@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.paymentMapper">
+
+	<update id="updateMember"
+		parameterType="com.itwillbs.domain.MemberVO">
+		update member set member_name = #{member_name}, member_zipcode = #{member_zipcode}, 
+			member_address = #{member_address}, member_addressDetail = #{member_addressDetail},
+			member_phone = #{member_phone}					
+		where member_id = #{member_id} 
+	</update>
+	
+<insert id="insertOrder"
+      parameterType="com.itwillbs.domain.OrderItemVO">
+      insert into
+      orderItem(orderItem_idx,item_idx,member_id,orderItem_isOffline,orderItem_quantity,orderItem_state,orderItem_date,orderItem_merchantID)
+      values(#{orderItem_idx},#{item_idx},#{member_id},#{orderItem_isOffline},#{orderItem_quantity},#{orderItem_state},#{orderItem_date},#{orderItem_merchantID})
+   </insert>
+
+	<insert id="insertPayment"
+		parameterType="com.itwillbs.domain.PaymentVO">
+		insert into
+		payment(payment_idx,orderitem_idx,payment_price,payment_date)
+		values(#{payment_idx},#{orderitem_idx},#{payment_price},#{payment_date})
+	</insert>
+	
+	<update id="usePoint" parameterType="com.itwillbs.domain.MemberVO">
+		update member set member_point = #{member_point}		
+		where member_id = #{member_id} 
+	</update>
+
+</mapper>
+
+
+
+
+
+
+
+
+

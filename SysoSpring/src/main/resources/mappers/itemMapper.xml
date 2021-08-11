@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.itemMapper">
+
+	<select id="getItem" resultType="com.itwillbs.domain.ItemVO">
+		select item_subject, item_price, item_date from item order by item_date desc
+		limit 0, 8
+	</select>
+
+	<select id="getMemberID" resultType="String" parameterType="com.itwillbs.domain.MemberVO">
+		select member_id from item where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getMemberID2" resultType="String" parameterType="com.itwillbs.domain.MemberVO">
+	  select * from member where member_id = #{member_inviteID}
+	</select>
+
+	<select id="infinite" resultType="com.itwillbs.domain.ItemVO">
+<![CDATA[
+select * from item where sysdate() < item_endDate and item_state = 0 order by rand() limit #{startNum}, #{endNum} 
+]]>
+<!-- item_date between date_add(now(),interval -1 week ) and now() -->
+<!-- item_endDate > now() -->
+	</select>
+<!-- where item_state = 1 -->
+
+
+	<insert id="join" parameterType="com.itwillbs.domain.MemberVO">
+		insert into member(member_id, member_password, member_name, member_nickname,
+		member_email, member_zipcode, member_address, member_addressDetail,
+		member_phone, member_authStatus, member_authKey)
+		values(
+		#{member_id},
+		#{member_password},
+		#{member_name},
+		#{member_nickname},
+		#{member_email},
+		#{member_zipcode},
+		#{member_address},
+		#{member_addressDetail},
+		#{member_phone},
+		0,
+		null
+		)
+
+	</insert>
+	
+	<insert id="kakaoMember" parameterType="com.itwillbs.domain.MemberVO">
+	insert into member(member_id, member_password, member_name, member_nickname, member_email, member_authStatus)
+	values(#{member_id}, #{member_password}, #{member_nickname}, #{member_nickname}, #{member_email}, 1)
+	</insert>
+	
+	<select id="checkEmail" resultType="com.itwillbs.domain.MemberVO">
+	select * from member where member_email = #{member_email}
+	</select>
+	
+	<select id="alreadyDone" resultType="com.itwillbs.domain.MemberVO">
+	select * from member where member_id = #{member_id}
+	</select>
+	
+		<insert id="join2" parameterType="com.itwillbs.domain.MemberVO">
+		insert into member(member_id, member_password, member_name, member_nickname,
+		member_email, member_zipcode, member_address, member_addressDetail,
+		member_phone, member_authStatus, member_authKey, member_point)
+		values(
+		#{member_id},
+		#{member_password},
+		#{member_name},
+		#{member_nickname},
+		#{member_email},
+		#{member_zipcode},
+		#{member_address},
+		#{member_addressDetail},
+		#{member_phone},
+		0,
+		null,
+		member_point + #{member_point}
+		)
+
+	</insert>
+	
+	<update id="updatePoint" parameterType="com.itwillbs.domain.MemberVO">
+	update member SET member_point = member_point+3000 WHERE member_id = #{member_inviteID}
+	</update>
+
+	<select id="getItemDetail"
+		resultType="com.itwillbs.domain.ItemVO">
+		select * from item where item_idx = #{item_idx}
+
+	</select>
+
+	<update id="authkey"
+		parameterType="com.itwillbs.domain.MemberVO">
+		update member set member_authKey = #{member_authKey} where member_id =
+		#{member_id}
+	</update>
+
+	<update id="authstatus"
+		parameterType="com.itwillbs.domain.MemberVO">
+		update member set member_authStatus = #{member_authStatus} where member_id =
+		#{member_id}
+	</update>
+
+	<select id="checkdup"
+		resultType="com.itwillbs.domain.MemberVO">
+		select * from member where member_id = #{member_id}
+	</select>
+
+	<select id="getAuth" resultType="com.itwillbs.domain.MemberVO">
+	select * from member where member_id = #{member_id}
+	</select>
+	
+	<select id="findPw" resultType="com.itwillbs.domain.MemberVO">
+	select * from member where member_id = #{member_id}
+	</select>
+	
+
+<!-- Chatting 관련 -->
+	<select id="userCheck" resultType="com.itwillbs.domain.MemberVO">
+		select * from member where member_id = #{member_id} and member_password =
+		#{member_password}
+	</select>
+
+	<select id="getNickname" resultType="String">
+	select member_id from item where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getMsg" resultType="com.itwillbs.domain.MessageDTO">
+	select * from message where (recv_nick = #{recv_nick} and send_nick = #{send_nick}) or 
+	 recv_nick = #{send_nick} and send_nick = #{recv_nick} order by send_time ASC;
+	</select>
+	
+		<select id="getMsg2" resultType="com.itwillbs.domain.MessageDTO">
+		select * from message where room = #{room}
+		</select>
+	
+	
+	<select id="getMsgOne" resultType="com.itwillbs.domain.MessageDTO">
+	select * from message where send_nick = #{send_nick} order by send_time desc limit 0,1;
+	</select>
+	
+	<insert id="insertRoom" parameterType="com.itwillbs.domain.MessageDTO">
+	insert into message  values(0,#{room},#{send_nick},#{recv_nick},#{content},now())
+	</insert>
+	
+		<insert id="insertMessage" parameterType="com.itwillbs.domain.MessageDTO">
+	insert into message  values(0,#{room},#{send_nick},#{recv_nick},#{content},now())
+	</insert>
+	
+	<select id="getChatList" resultType="com.itwillbs.domain.MessageDTO">
+	select no,send_nick, recv_nick,room,send_time from message 
+	where no in (select max(no) from message group by room) and (send_nick = #{send_nick} or recv_nick = #{send_nick})
+	order by no desc
+	 
+	</select>
+	
+	<!-- 홍민씨가 하신 -->
+	
+	<insert id="insertItem" parameterType="com.itwillbs.domain.ItemVO">
+insert into item(member_id, category_idx, item_subject, item_detail, item_img, item_price, item_count, item_isUsed, item_isExchange, item_region, item_isDirect, item_isDeliveryFree, item_charge, item_likesCount, item_readcount, item_date, item_endDate, item_state)
+values(
+#{member_id},
+#{category_idx},
+#{item_subject},
+#{item_detail},
+#{item_img},
+#{item_price},
+#{item_count},
+#{item_isUsed},
+#{item_isExchange},
+#{item_region},
+#{item_isDirect},
+#{item_isDeliveryFree},
+#{item_charge},
+#{item_likesCount},
+#{item_readcount},
+#{item_date},
+#{item_endDate},
+#{item_state}
+)
+
+</insert>
+
+<update id="increaseReadCount">
+   UPDATE item SET item_readcount = item_readcount + 1 WHERE item_idx = #{item_idx}
+</update>
+
+<update id="increaseLikesCount" parameterType="com.itwillbs.domain.ItemVO">
+   update item SET item_likesCount = item_likesCount + 1 where item_idx = #{item_idx}
+</update>
+
+<update id="decreaseLikesCount" parameterType="com.itwillbs.domain.ItemVO">
+   UPDATE item SET item_likesCount = item_likesCount - 1 WHERE item_idx = #{item_idx}
+</update>
+
+
+
+<select id="getTagNames" resultType="java.lang.String">
+   SELECT hashtag_name FROM hashtag WHERE item_idx = #{item_idx}
+</select>
+
+<select id="getCategoryName" resultType="java.lang.String">
+   SELECT category_name FROM category WHERE category_idx = #{category_idx}
+</select>
+
+
+<!--  해쉬태그 -->
+<select id="getMaxIdx" resultType="java.lang.Integer">
+select max(item_idx) from item;
+
+</select>
+
+<!-- <insert id="insertHash" parameterType="com.itwillbs.domain.ItemVO"> -->
+<!-- insert into hashtag(item_idx, hashtag_name) -->
+<!-- values( -->
+<!-- #{item_idx}, -->
+<!-- #{hashtag_name} -->
+<!-- ) -->
+<!-- </insert> -->
+
+
+<insert id="insertHash2" parameterType="com.itwillbs.domain.ItemVO">
+insert into hashtag(item_idx, hashtag_name)
+values(
+#{item_idx},
+#{hashtag_name}
+)
+</insert>
+
+
+<!--  검색 -->
+
+<!-- <select id="getKeyword" resultType="com.itwillbs.domain.ItemVO"> -->
+<!-- select * from item where item_subject like concat('%',#{keyword},'%') OR -->
+<!-- item_idx = any(select item_idx from hashtag where hashtag_name like concat('%',#{keyword},'%')) order by rand() -->
+<!-- </select> -->
+
+<select id="getKeyword" resultType="com.itwillbs.domain.ItemVO">
+select * from item where replace(item_subject, ' ','') like concat('%',#{keyword},'%') OR
+item_idx = any(select item_idx from hashtag where hashtag_name like concat('%',#{keyword},'%')) order by rand()
+</select>
+
+<select id="getItemCategory" resultType="com.itwillbs.domain.ItemVO">
+select * from item where category_idx = #{item_category} order by rand()
+<!-- select item_subject, item_price, item_charge, item_img, item_region, item_date from item where item_category = #{item_category} order by item_date desc -->
+</select>
+
+
+<!--  선혜 -->
+
+<select id="getMyItemList" resultType="com.itwillbs.domain.ItemVO">
+		select * from item where member_id=#{member_id} and item_state = 0 order by item_date desc
+	</select>
+	
+	<select id="getItemInfo" resultType="com.itwillbs.domain.ItemVO">
+		select * from item where item_idx=#{item_idx}
+	</select>
+	
+	<select id="getItemSubject" resultType="string">
+		select item_subject from item where item_idx=#{item_idx}
+	</select>
+	
+	
+   <select id="getRelatedItem" parameterType="com.itwillbs.domain.ItemVO" resultType="com.itwillbs.domain.ItemVO">
+   SELECT item_img, item_idx, item_subject FROM item WHERE item_idx != #{item_idx} AND category_idx = #{category_idx} AND item_state = 0 ORDER BY RAND() LIMIT 6
+</select>
+
+<select id="getShopItemPhoto" resultType="com.itwillbs.domain.ItemVO">
+   SELECT item_img, item_idx, item_price FROM item WHERE item_idx != #{item_idx} AND member_id = #{member_id} AND item_state = 0 ORDER BY RAND() LIMIT 2
+</select>
+
+
+<select id="getSellList" resultType="com.itwillbs.domain.ItemVO">
+select * from item where member_id = #{member_id}
+</select>
+
+<select id="getBuyList" resultType="com.itwillbs.domain.ItemVO">
+select item.*, orderitem.orderitem_date, member.member_nickname from item, orderitem, member where item.item_idx=orderitem.item_idx and item.member_id=member.member_id and orderitem.member_id=#{member_id};
+</select>
+
+<select id="myItemList" resultType="com.itwillbs.domain.ItemVO">
+<!-- select * from item where member_id=#{member_id} order by num desc limit #{startRow},#{pageSize} -->
+select * from item where member_id=#{member_id}
+</select>
+
+
+<select id="getUpdateItem" resultType="com.itwillbs.domain.ItemVO">
+<!-- select item_subject, item_price, item_date from item where item_idx = #{item_idx} -->
+select * from item where item_idx = #{item_idx}
+</select>
+
+<update id="updatePro" >
+update item set 
+item_subject=#{item_subject},
+item_detail=#{item_detail},
+
+item_price=#{item_price},
+item_count=#{item_count},
+item_isUsed=#{item_isUsed},
+item_isExchange=#{item_isExchange},
+item_region=#{item_region},
+item_isDirect=#{item_isDirect},
+item_isDeliveryFree=#{item_isDeliveryFree},
+item_charge=#{item_charge},
+
+
+item_state=#{item_state},
+category_idx = #{category_idx}
+
+
+where item_idx = #{item_idx}
+</update>
+
+<select id="commnetCount" resultType="_int">
+
+select count(comment_idx) from comment where item_idx = #{item_idx}
+
+</select>
+
+<update id="timeUpdate">
+   UPDATE item SET item_date = #{item_date} WHERE item_idx = #{item_idx}
+</update>
+
+<delete id="deletePro">
+delete from item where item_idx = #{item_idx}
+</delete>
+
+  <update id="updateItemState" parameterType="com.itwillbs.domain.ItemVO">
+      update item set item_state = #{item_state}      
+      where item_idx = #{item_idx} 
+   </update>
+   
+   <select id="getMemberNickname" resultType="String">
+   select member_nickname from member where member_id = #{member_id}
+   </select>
+
+<update id="changeItemState" parameterType="com.itwillbs.domain.ItemVO">
+
+update item set item_state = #{item_state} where item_idx = #{item_idx}
+</update>
+
+<select id="getSellKing" resultType="String">
+select distinct member_id from shop where shop_itemCount = (select distinct max(shop_itemCount) from shop) limit 0,1;
+
+</select>
+
+<select id="getSaleCount" resultType="_int">
+	select count(*) from item where member_id=#{member_id} and item_state=1
+</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+

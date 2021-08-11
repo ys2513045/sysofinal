@@ -1,0 +1,94 @@
+#container{
+    width: 1024px;
+    margin: 0 auto;
+}
+#order_area{
+    padding-top: 140px;
+    margin-bottom: 20px;
+}
+
+.title{
+    text-align: center;
+    padding: 20px;
+    font-size: 2rem;
+    width: 100%;
+   border-bottom: 1px solid #396afc;
+}
+.sub_title{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.tb_title{
+    width: 150px;
+    height: 60px;
+    color: #396afc;
+}
+.order_form table{                 
+    margin:0 auto;
+}
+.order_form table input{
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 6px;
+    width: 500px;
+}
+.order_form input:focus{
+    border:1px solid #396afc;
+}
+.footer{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.footer p{
+    text-align: center;
+}
+
+
+.buyby{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+.radio_area{
+text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.how{
+    margin-right: 20px;
+}
+.how input{
+    margin-left: 5px;
+    
+}
+.usePoint{
+    border: none;
+    outline: none;
+    background: #396afc;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+.submit_area table{
+    margin-bottom: 20px;
+}
+.btn_area{
+    text-align: center;
+}
+.btn_area button{
+    background: #fff;
+    color: #396afc;
+    padding: 10px 20px;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 10%), 0 8px 20px rgb(0 0 0 / 10%);
+    margin-right: 20px;
+
+    
+}

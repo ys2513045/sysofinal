@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.shopMapper">
+
+	<select id="getShop" resultType="com.itwillbs.domain.ShopVO">
+		select * from shop where member_id=#{member_id}
+	</select>
+
+	<select id="getShopIntro" resultType="string">
+		select shop_intro from shop where member_id=#{member_id}
+	</select>
+
+	<update id="updateShopIntro">
+		update shop set shop_intro=#{shop_intro} where member_id=#{member_id}
+	</update>
+
+  <select id="getShopInfo" resultType="com.itwillbs.domain.ShopVO">
+      SELECT * FROM shop WHERE member_id = #{member_id}
+   </select>
+   
+   	<update id="updateShopItemCount" >
+		update shop set shop_itemCount=shop_itemCount+1 where member_id=#{member_id}
+	</update>
+
+
+</mapper>

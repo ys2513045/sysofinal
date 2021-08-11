@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.shopReviewMapper">
+
+	<insert id="insertShopReview">
+        insert into shopReview(shop_member_id, shopReview_id, shopReview_star, shopReview_content, shopReview_date, item_idx) 
+        values(#{shop_member_id}, #{shopReview_id}, #{shopReview_star}, #{shopReview_content}, now(), #{item_idx})
+    </insert>
+	
+	<update id="updateShopReview">
+	</update>
+	
+	<delete id="deleteShopReview">
+		delete from shopReview where shopReview_idx=#{shopReview_idx}
+	</delete>
+	
+	<select id="getShopReviewList" resultType="com.itwillbs.domain.ShopReviewVO">
+		select * from shopReview where shop_member_id=#{shop_member_id} order by shopReview_date desc;
+	</select>
+	
+	<select id="getreviewCount" resultType="java.lang.Integer">
+      SELECT COUNT(*) FROM shopReview WHERE shop_member_id = #{shop_member_id}
+   </select>
+   
+   
+   <select id="getPreReview" resultType="com.itwillbs.domain.ShopReviewVO">
+      SELECT * FROM shopReview WHERE shop_member_id = #{shop_member_id} ORDER BY shopReview_date ASC LIMIT 2
+   </select>
+   
+
+    <select id="getShopReview" resultType="com.itwillbs.domain.ShopReviewVO">
+        select * from shopReview where shopReview_id=#{shopReview_id} and item_idx=#{item_idx}
+    </select>
+   
+   
+   
+
+</mapper>

@@ -1,0 +1,103 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    
+    
+}
+ul,ol,li{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+}
+#chatContainer{
+    margin:0 auto;
+    width: 390px;
+    height: 500px;
+     background: #fff;
+     box-shadow: 0 2px 8px rgb(0 0 0 / 20%), 0 8px 20px rgb(0 0 0 / 20%);
+}
+
+.left{
+    width: 70px;
+    float: left;
+    background: #397afc;
+    height: 100%;
+    
+}
+.left ul li{
+    padding: 20px;
+}
+.left ul li:first-child{
+    margin-top: 50px;
+}
+
+.left:after{
+    clear: both;
+    content:'';
+    display: block;
+}
+.right{
+    width: 320px;
+    float: right;
+    height: 100%;
+}
+.message_area{
+    width: 100%;
+}
+h1{
+    margin: 0;
+}
+
+.time_line{
+    padding: 20px;
+    border-bottom: 1px solid #396afc;
+}
+.title{
+    margin-top: 50px;
+    font-size: 20px;
+}
+.message_list{
+	overflow-y:scroll;
+}
+.message_list li{
+    width: 100%;
+    height: 50px;
+  
+    
+}
+.active{
+    background-color: #eee;
+}
+
+.content{
+    padding: 20px;
+    
+    display: flex;
+}
+
+.img_cont{
+    width: 40px;    
+    margin-right: 20px;
+}
+.img_content img{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    
+}
+.txt_cont{
+    margin-top: 10px;
+    font-size: 11px;
+}
+.txt_cont .name{
+    font-weight: bold; margin-right: 50px;
+}
+.message_list li{
+    margin-bottom:30px;
+}

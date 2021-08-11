@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.likesMapper">
+   
+   <select id="getLikesItem" parameterType="com.itwillbs.domain.likesVO" resultType="com.itwillbs.domain.likesVO">
+      SELECT * FROM likes WHERE member_id = #{member_id} and item_idx = #{item_idx}
+   </select>
+   
+   <insert id="changeToRed" parameterType="com.itwillbs.domain.likesVO">
+      INSERT INTO likes values (#{item_idx}, #{member_id})
+   </insert>
+   
+   <delete id="changeToGray" parameterType="com.itwillbs.domain.likesVO">
+      DELETE FROM likes WHERE item_idx = #{item_idx} AND member_id = #{member_id}
+   </delete>
+   
+   <select id="getLikesCount" resultType="int" parameterType="com.itwillbs.domain.likesVO">
+      select count(*) from likes where item_idx = #{item_idx}
+      
+   </select>
+   
+   <select id="memberLikesList" resultType="int">
+      select item_idx from likes where member_id=#{member_id}
+   </select>
+   
+</mapper>
